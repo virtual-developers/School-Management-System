@@ -20,7 +20,7 @@
 				
                 <table class="table table-bordered datatable" id="table_export">
                 	<thead>
-                            <thead>
+                            
                 		<tr>
                     		<th><div>#</div></th>
                     		<th><div><?php echo get_phrase('class_name');?></div></th>
