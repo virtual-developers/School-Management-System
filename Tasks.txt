@@ -1,0 +1,15 @@
+
+For Student report: (Jawad)
+-1. Mark all student status "absent" by default in DB and view.
+0. Create status of "Absent & present" filter.
+1. Reporting tab for student daily reporting.
+2. Make functionailty to get all students on monthly basics.
+3. Make functionality to get daily attendence detail of specific student (Add student dropdown).
+4. Create sumarry for studnets total attendence at top page. (for example no. student).
+
+
+To holiday management (Br. Sibghut)
+Create table for holiday record.
+1. ID, Date, And description fild in DB table.
+2. Make view, so Admin will enter all holidays in system, enter date, description.
+3. Bydefault all working days will Active except saturday & sunday.
