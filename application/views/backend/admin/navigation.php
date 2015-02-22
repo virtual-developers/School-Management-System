@@ -192,13 +192,13 @@
                                
            
            
-			<li class="<?php if($page_name == 'invoice' || $page_name == 'student_information') echo 'opened active has-sub';?> ">
+			<li class="<?php if($page_name == 'invoice' || $page_name == 'student_invoice') echo 'opened active has-sub';?> ">
 				<a href="#">
 					<i class="entypo-credit-card"></i>
 					<span><?php echo get_phrase('Payments');?></span>
 				</a>
 				<ul>
-                	<!-- STUDENT ADMISSION -->
+                	<!-- invoice report -->
 					<li class="<?php if($page_name == 'invoice')echo 'active';?> ">
 						<a href="<?php echo base_url();?>index.php?admin/invoice">
 							<span><i class="entypo-dot"></i> <?php echo get_phrase('payment');?></span>
@@ -206,15 +206,15 @@
 					</li>
                   
                   <!-- STUDENT INFORMATION -->
-					<li class="<?php if($page_name == 'student_information')echo 'opened active';?> ">
+					<li class="<?php if($page_name == 'student_invoice')echo 'opened active';?> ">
 						<a href="#">
-							<span><i class="entypo-dot"></i> <?php echo get_phrase('student_information');?></span>
+							<span><i class="entypo-dot"></i> <?php echo get_phrase('student_invoice');?></span>
 						</a>
                         <ul>
                         	<?php $classes	=	$this->db->get('class')->result_array();
 							foreach ($classes as $row):?>
-							<li class="<?php if ($page_name == 'student_information' && $class_id == $row['class_id']) echo 'active';?>">
-								<a href="<?php echo base_url();?>index.php?admin/student_information/<?php echo $row['class_id'];?>">
+							<li class="<?php if ($page_name == 'student_invoice' && $class_id == $row['class_id']) echo 'active';?>">
+								<a href="<?php echo base_url();?>index.php?admin/student_invoice/<?php echo $row['class_id'];?>">
 									<span><?php echo get_phrase('class');?> <?php echo $row['name'];?></span>
 								</a>
 							</li>

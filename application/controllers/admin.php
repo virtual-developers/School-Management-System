@@ -67,6 +67,18 @@ class Admin extends CI_Controller
 		$this->load->view('backend/index', $page_data);
 	}
 	
+        function student_invoice($class_id = '')
+	{
+		if ($this->session->userdata('admin_login') != 1)
+            redirect('login', 'refresh');
+			
+		$page_data['page_name']  	= 'student_invoice';
+		$page_data['page_title'] 	= get_phrase('student_invoice'). " - ".get_phrase('class')." : ".
+											$this->crud_model->get_class_name($class_id);
+		$page_data['class_id'] 	= $class_id;
+		$this->load->view('backend/index', $page_data);
+	}
+	
 	function student_marksheet($class_id = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
