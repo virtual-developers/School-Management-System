@@ -522,6 +522,17 @@ class Admin extends CI_Controller
             $this->db->insert('invoice', $data);
             redirect(base_url() . 'index.php?admin/invoice', 'refresh');
         }
+        if ($param1 == 'do_create') {
+            $data['student_id']         = $this->input->post('student_id');
+            $data['title']              = $this->input->post('title');
+            $data['description']        = $this->input->post('description');
+            $data['amount']             = $this->input->post('amount');
+            $data['status']             = $this->input->post('status');
+            $data['creation_timestamp'] = strtotime($this->input->post('date'));
+            
+            $this->db->insert('invoice', $data);
+            redirect(base_url() . 'index.php?admin/invoice', 'refresh');
+        }
         if ($param1 == 'do_update') {
             $data['student_id']         = $this->input->post('student_id');
             $data['title']              = $this->input->post('title');

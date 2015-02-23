@@ -93,18 +93,18 @@
                                 <div class="col-sm-5">
                                     <select name="student_id" class="form-control" style="width:400px;" >
                                     	<?php 
-										$this->db->order_by('class_id','asc');
-										$students = $this->db->get('student')->result_array();
-										foreach($students as $row):
-										?>
+						$this->db->order_by('class_id','asc');
+						$students = $this->db->get('student')->result_array();
+						foreach($students as $row):
+					?>
                                     		<option value="<?php echo $row['student_id'];?>">
                                                 class <?php echo $this->crud_model->get_class_name($row['class_id']);?> -
                                                 roll <?php echo $row['roll'];?> -
-												<?php echo $row['name'];?>
+						<?php echo $row['name'];?>
                                             </option>
                                         <?php
-										endforeach;
-										?>
+							endforeach;
+								?>
                                     </select>
                                 </div>
                             </div>

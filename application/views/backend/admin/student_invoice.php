@@ -44,9 +44,9 @@
                         
                         <!-- STUDENT EDITING LINK -->
                         <li>
-                            <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php?modal/popup/modal_student_edit/<?php echo $row['student_id'];?>');">
+                            <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php?modal/popup/modal_create_invoice/<?php echo $row['student_id'];?>');">
                                 <i class="entypo-pencil"></i>
-                                    <?php echo get_phrase('edit');?>
+                                    <?php echo get_phrase('Get Fee');?>
                                 </a>
                                         </li>
                         <li class="divider"></li>

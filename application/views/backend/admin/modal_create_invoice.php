@@ -1,11 +1,11 @@
 <?php 
-$edit_data		=	$this->db->get_where('invoice' , array('invoice_id' => $param2) )->result_array();
+$edit_data		=	$this->db->get_where('student' , array('student_id' => $param2) )->result_array();
 ?>
 
 <div class="tab-pane box active" id="edit" style="padding: 5px">
     <div class="box-content">
         <?php foreach($edit_data as $row):?>
-        <?php echo form_open('admin/invoice/do_update/'.$row['invoice_id'], array('class' => 'form-horizontal form-groups-bordered validate','target'=>'_top'));?>
+        <?php echo form_open('admin/invoice/do_create/'.$row['student_id'], array('class' => 'form-horizontal form-groups-bordered validate','target'=>'_top'));?>
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo get_phrase('student');?></label>
                     <div class="col-sm-5">
