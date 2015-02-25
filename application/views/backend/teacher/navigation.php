@@ -135,6 +135,16 @@
 				</a>
                 
            </li>
+           
+           <!-- Reporting 
+           Add new tab in left slide bar and made redirection-->           
+           <li class="<?php if($page_name == 'manage_attendances')echo 'active';?> ">
+				<a href="<?php echo base_url();?>index.php?reports/manage_attendance/<?php echo date("d/m/Y");?>">
+					<i class="entypo-chart-area"></i>
+					<span><?php echo get_phrase('Reporting');?></span>
+				</a>
+                
+           </li>
             
            <!-- EXAMS -->
            <li class="<?php if($page_name == 'exam' ||
