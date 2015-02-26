@@ -42,14 +42,14 @@
                                 </a>
                                         </li>
                         
-                        <!-- STUDENT EDITING LINK -->
+<!--                         STUDENT EDITING LINK 
                         <li>
                             <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php?modal/popup/modal_student_edit/<?php echo $row['student_id'];?>');">
                                 <i class="entypo-pencil"></i>
                                     <?php echo get_phrase('edit');?>
                                 </a>
                                         </li>
-                        <li class="divider"></li>
+                        <li class="divider"></li>-->
                         
                         <!-- STUDENT DELETION LINK -->
                         <li>
