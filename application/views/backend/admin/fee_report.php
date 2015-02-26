@@ -1,3 +1,8 @@
+
+<?php 
+$edit_data		=	$this->db->get_where('invoice' , array('student_id' => $param2) )->result_array();
+?>
+
 <div class="row">
 	<div class="col-md-12">
     
@@ -26,7 +31,7 @@
 						</tr>
 					</thead>
                     <tbody>
-                    	<?php foreach($invoices as $row):?>
+                    	<?php foreach($edit_data as $row):?>
                         <tr>
 							<td><?php echo $this->crud_model->get_type_name_by_id('student',$row['student_id']);?></td>
 							<td><?php echo $row['title'];?></td>

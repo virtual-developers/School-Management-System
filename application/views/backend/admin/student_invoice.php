@@ -1,9 +1,3 @@
-
-<a href="javascript:;" onclick="showAjaxModal('<?php echo base_url();?>index.php?modal/popup/student_add/');" 
-    class="btn btn-primary pull-right">
-        <i class="entypo-plus-circled"></i>
-        <?php echo get_phrase('add_new_student');?>
-    </a> 
 <br><br>
 <table class="table table-bordered datatable" id="table_export">
     <thead>
@@ -42,11 +36,17 @@
                                 </a>
                                         </li>
                         
-                        <!-- STUDENT EDITING LINK -->
+                        <!-- STUDENT FEE -->
                         <li>
                             <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php?modal/popup/modal_create_invoice/<?php echo $row['student_id'];?>');">
                                 <i class="entypo-pencil"></i>
                                     <?php echo get_phrase('Get Fee');?>
+                                </a>
+                                        </li>
+                                        <li>
+                            <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php?modal/popup/fee_report/<?php echo $row['student_id'];?>');">
+                                <i class="entypo-pencil"></i>
+                                    <?php echo get_phrase('Fee History');?>
                                 </a>
                                         </li>
                         <li class="divider"></li>

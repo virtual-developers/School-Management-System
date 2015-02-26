@@ -512,12 +512,21 @@ class Admin extends CI_Controller
             redirect(base_url(), 'refresh');
         
         if ($param1 == 'create') {
-            $data['student_id']         = $this->input->post('student_id');
+           $data['student_id']         = $this->input->post('student_id');
             $data['title']              = $this->input->post('title');
             $data['description']        = $this->input->post('description');
+            $data['add_fee']        = $this->input->post('add_fee');
+            $data['security_fee']        = $this->input->post('security_fee');
+            $data['tuition_fee']        = $this->input->post('tuition_fee');
+            $data['annual_fee']        = $this->input->post('annual_fee');
+            $data['stationary_fee']        = $this->input->post('stationary_fee');
+            $data['multimedia_fee']        = $this->input->post('multimedia_fee');
+            $data['others']        = $this->input->post('others');
             $data['amount']             = $this->input->post('amount');
             $data['status']             = $this->input->post('status');
             $data['creation_timestamp'] = strtotime($this->input->post('date'));
+            $data['due_date'] = strtotime($this->input->post('due_date'));
+            
             
             $this->db->insert('invoice', $data);
             redirect(base_url() . 'index.php?admin/invoice', 'refresh');
@@ -526,9 +535,17 @@ class Admin extends CI_Controller
             $data['student_id']         = $this->input->post('student_id');
             $data['title']              = $this->input->post('title');
             $data['description']        = $this->input->post('description');
+            $data['add_fee']        = $this->input->post('add_fee');
+            $data['security_fee']        = $this->input->post('security_fee');
+            $data['tuition_fee']        = $this->input->post('tuition_fee');
+            $data['annual_fee']        = $this->input->post('annual_fee');
+            $data['stationary_fee']        = $this->input->post('stationary_fee');
+            $data['multimedia_fee']        = $this->input->post('multimedia_fee');
+            $data['others']        = $this->input->post('others');
             $data['amount']             = $this->input->post('amount');
             $data['status']             = $this->input->post('status');
             $data['creation_timestamp'] = strtotime($this->input->post('date'));
+            $data['due_date'] = strtotime($this->input->post('due_date'));
             
             $this->db->insert('invoice', $data);
             redirect(base_url() . 'index.php?admin/invoice', 'refresh');
@@ -537,9 +554,18 @@ class Admin extends CI_Controller
             $data['student_id']         = $this->input->post('student_id');
             $data['title']              = $this->input->post('title');
             $data['description']        = $this->input->post('description');
+            $data['add_fee']        = $this->input->post('add_fee');
+            $data['security_fee']        = $this->input->post('security_fee');
+            $data['tuition_fee']        = $this->input->post('tuition_fee');
+            $data['annual_fee']        = $this->input->post('annual_fee');
+            $data['stationary_fee']        = $this->input->post('stationary_fee');
+            $data['multimedia_fee']        = $this->input->post('multimedia_fee');
+            $data['others']        = $this->input->post('others');
             $data['amount']             = $this->input->post('amount');
             $data['status']             = $this->input->post('status');
             $data['creation_timestamp'] = strtotime($this->input->post('date'));
+            $data['due_date'] = strtotime($this->input->post('due_date'));
+            
             
             $this->db->where('invoice_id', $param2);
             $this->db->update('invoice', $data);
@@ -560,6 +586,78 @@ class Admin extends CI_Controller
         $page_data['invoices'] = $this->db->get('invoice')->result_array();
         $this->load->view('backend/index', $page_data);
     }
+    
+    /**********PAYMENT REPORTING********************/
+    function fee_report($param1 = '', $param2 = '', $param3 = '')
+    {
+        //if($this->session->userdata('parent_login')!=1)redirect(base_url() , 'refresh');
+        if ($param1 == 'make_payment') {
+            $invoice_id      = $this->input->post('invoice_id');
+            $system_settings = $this->db->get_where('settings', array(
+                'type' => 'paypal_email'
+            ))->row();
+            $invoice_details = $this->db->get_where('invoice', array(
+                'invoice_id' => $invoice_id
+            ))->row();
+            
+            /****TRANSFERRING USER TO PAYPAL TERMINAL****/
+            $this->paypal->add_field('rm', 2);
+            $this->paypal->add_field('no_note', 0);
+            $this->paypal->add_field('item_name', $invoice_details->title);
+            $this->paypal->add_field('amount', $invoice_details->amount);
+            $this->paypal->add_field('custom', $invoice_details->invoice_id);
+            $this->paypal->add_field('business', $system_settings->description);
+            $this->paypal->add_field('notify_url', base_url() . 'index.php?parents/invoice/paypal_ipn');
+            $this->paypal->add_field('cancel_return', base_url() . 'index.php?parents/invoice/paypal_cancel');
+            $this->paypal->add_field('return', base_url() . 'index.php?parents/invoice/paypal_success');
+            
+            $this->paypal->submit_paypal_post();
+            // submit the fields to paypal
+        }
+        if ($param1 == 'paypal_ipn') {
+            if ($this->paypal->validate_ipn() == true) {
+                $ipn_response = '';
+                foreach ($_POST as $key => $value) {
+                    $value = urlencode(stripslashes($value));
+                    $ipn_response .= "\n$key=$value";
+                }
+                $data['payment_details']   = $ipn_response;
+                $data['payment_timestamp'] = strtotime(date("m/d/Y"));
+                $data['payment_method']    = 'paypal';
+                $data['status']            = 'paid';
+                $invoice_id                = $_POST['custom'];
+                $this->db->where('invoice_id', $invoice_id);
+                $this->db->update('invoice', $data);
+            }
+        }
+        if ($param1 == 'paypal_cancel') {
+            $this->session->set_flashdata('flash_message', get_phrase('payment_cancelled'));
+            redirect(base_url() . 'index.php?parents/invoice/', 'refresh');
+        }
+        if ($param1 == 'paypal_success') {
+            $this->session->set_flashdata('flash_message', get_phrase('payment_successfull'));
+            redirect(base_url() . 'index.php?parents/invoice/', 'refresh');
+        }
+        $parent_profile         = $this->db->get_where('parent', array(
+            'parent_id' => $this->session->userdata('parent_id')
+        ))->row();
+        
+		$student_id     =	$this->db->get_where('parent', array( 'parent_id' => $this->session->userdata('parent_id') 
+							))->row()->student_id;
+		$class_id		=	$this->db->get_where('student', array( 'student_id' => $student_id 
+							))->row()->class_id;
+        $page_data['student_id'] 	= $student_id;
+        $page_data['class_id'] 		= $class_id;
+		
+        $page_data['invoices']   = $this->db->get_where('invoice', array(
+            'student_id' => $student_id
+        ))->result_array();
+        $page_data['page_name']  = 'student_invoice';
+        $page_data['page_title'] = get_phrase('manage_invoice/payment');
+        $this->load->view('backend/index', $page_data);
+    }
+    
+    
     /**********MANAGE LIBRARY / BOOKS********************/
     function book($param1 = '', $param2 = '', $param3 = '')
     {
