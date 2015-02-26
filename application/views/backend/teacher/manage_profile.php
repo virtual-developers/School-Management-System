@@ -23,7 +23,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label"><?php echo get_phrase('name');?></label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" name="name" value="<?php echo $row['name'];?>"/>
+                                    <input type="text" class="form-control" name="name" disabled="" value="<?php echo $row['name'];?>"/>
                                 </div>
                             </div>
                             <div class="form-group">
