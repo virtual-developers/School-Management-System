@@ -48,12 +48,12 @@
 					<span><?php echo get_phrase('student');?></span>
 				</a>
 				<ul>
-                	<!-- STUDENT ADMISSION -->
+<!--                	 STUDENT ADMISSION 
 					<li class="<?php if($page_name == 'student_add')echo 'active';?> ">
 						<a href="<?php echo base_url();?>index.php?<?php echo $account_type;?>/student_add">
 							<span><i class="entypo-dot"></i> <?php echo get_phrase('admit_student');?></span>
 						</a>
-					</li>
+					</li>-->
                   
                   <!-- STUDENT INFORMATION -->
 					<li class="<?php if($page_name == 'student_information')echo 'opened active';?> ">
