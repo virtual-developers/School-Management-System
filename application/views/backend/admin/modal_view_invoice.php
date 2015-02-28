@@ -6,10 +6,19 @@ $edit_data		=	$this->db->get_where('invoice' , array('invoice_id' => $param2) )-
     <div class="box-content">
         <?php foreach($edit_data as $row):?>
         
-        
+        <div class="centered">
+			<span style="font-size:20px;font-weight:200;">
+				<?php echo get_phrase('Invoice #');?>
+            </span>
+            <br />
+            <?php echo get_phrase('SN');?> / <?php echo $this->db->get_where('student' , array('student_id'=>$row['student_id']))->row()->class_id;?> - <?php echo $this->db->get_where('student' , array('student_id'=>$row['student_id']))->row()->roll;?>/<?php echo date('dmy', $this->db->get_where('invoice' , array('student_id'=>$row['student_id']))->row()->creation_timestamp);?>
+            <br />
+            
+        </div>
+        <br />
         <div class="pull-left">
 			<span style="font-size:20px;font-weight:200;">
-				<?php echo get_phrase('payment_to');?>
+				<?php echo get_phrase('School_Name');?>
             </span>
             <br />
             <?php echo $this->db->get_where('settings' , array('type'=>'system_name'))->row()->description;?>
@@ -18,7 +27,7 @@ $edit_data		=	$this->db->get_where('invoice' , array('invoice_id' => $param2) )-
         </div>
         <div class="pull-right">
 			<span style="font-size:20px;font-weight:200;">
-				<?php echo get_phrase('bill_to');?>
+				<?php echo get_phrase('Fee_Voucher_Of');?>
             </span>
             <br />
 				<?php echo $this->db->get_where('student' , array('student_id'=>$row['student_id']))->row()->name;?>
@@ -45,16 +54,128 @@ $edit_data		=	$this->db->get_where('invoice' , array('invoice_id' => $param2) )-
             </tr>
         	<tr>
             	<td>
-					<span style="font-size:20px;font-weight:200;">
-						<?php echo $row['title'];?>
+					<span style="font-size:12px;font-weight:200;">
+						<?php echo get_phrase('Addmission Fee');?>
                     </span>
                     <br />
-					<?php echo $row['description'];?>
+					
+                </td>
+            	<td width="30%" style="padding:5px;">
+					<div class="pull-right">
+						<span style="font-size:12px;font-weight:200;">
+							<?php echo $row['add_fee'];?>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            	<td>
+					<span style="font-size:12px;font-weight:200;">
+						<?php echo get_phrase('Security Fee');?>
+                    </span>
+                    <br />
+					
+                </td>
+            	<td width="30%" style="padding:5px;">
+					<div class="pull-right">
+						<span style="font-size:12px;font-weight:200;">
+							<?php echo $row['security_fee'];?>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+            	<td>
+					<span style="font-size:12px;font-weight:200;">
+						<?php echo get_phrase('Tuition Fee');?>
+                    </span>
+                    <br />
+					
+                </td>
+            	<td width="30%" style="padding:5px;">
+					<div class="pull-right">
+						<span style="font-size:12px;font-weight:200;">
+							<?php echo $row['tuition_fee'];?>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+            	<td>
+					<span style="font-size:12px;font-weight:200;">
+						<?php echo get_phrase('Annual Charges');?>
+                    </span>
+                    <br />
+					
+                </td>
+            	<td width="30%" style="padding:5px;">
+					<div class="pull-right">
+						<span style="font-size:12px;font-weight:200;">
+							<?php echo $row['annual_fee'];?>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            	<td>
+					<span style="font-size:12px;font-weight:200;">
+						<?php echo get_phrase('Stationary Charges');?>
+                    </span>
+                    <br />
+					
+                </td>
+            	<td width="30%" style="padding:5px;">
+					<div class="pull-right">
+						<span style="font-size:12px;font-weight:200;">
+							<?php echo $row['stationary_fee'];?>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+            	<td>
+					<span style="font-size:12px;font-weight:200;">
+						<?php echo get_phrase('Multimedia Charges');?>
+                    </span>
+                    <br />
+					
+                </td>
+            	<td width="30%" style="padding:5px;">
+					<div class="pull-right">
+						<span style="font-size:12px;font-weight:200;">
+							<?php echo $row['multimedia_fee'];?>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+            	<td>
+					<span style="font-size:12px;font-weight:200;">
+						<?php echo get_phrase('Other Charges');?>
+                    </span>
+                    <br />
+					
+                </td>
+            	<td width="30%" style="padding:5px;">
+					<div class="pull-right">
+						<span style="font-size:12px;font-weight:200;">
+							<?php echo $row['others'];?>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+            	<td>
+					<span style="font-size:20px;font-weight:200;">
+						<?php echo get_phrase('Total');?>
+                    </span>
+                    <br />
+					
                 </td>
             	<td width="30%" style="padding:5px;">
 					<div class="pull-right">
 						<span style="font-size:20px;font-weight:200;">
-							<?php echo $row['amount'];?>
+							<?php echo $row['others']+$row['multimedia_fee']+$row['multimedia_fee']+$row['stationary_fee']+$row['annual_fee']+$row['tuition_fee']+$row['security_fee']+$row['add_fee'];?>
                         </span>
                     </div>
                 </td>
