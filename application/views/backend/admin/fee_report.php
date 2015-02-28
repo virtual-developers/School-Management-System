@@ -36,7 +36,7 @@ $edit_data		=	$this->db->get_where('invoice' , array('student_id' => $param2) )-
 							<td><?php echo $this->crud_model->get_type_name_by_id('student',$row['student_id']);?></td>
 							<td><?php echo $row['title'];?></td>
 							<td><?php echo $row['description'];?></td>
-							<td><?php echo $row['amount'];?></td>
+							<td><?php echo $row['add_fee']+$row['security_fee']+$row['tuition_fee']+$row['annual_fee']+$row['stationary_fee']+$row['multimedia_fee']+$row['others'];?></td>
 							<td>
 								<span class="label label-<?php if($row['status']=='paid')echo 'success';else echo 'secondary';?>"><?php echo $row['status'];?></span>
 							</td>

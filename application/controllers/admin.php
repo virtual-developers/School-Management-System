@@ -512,20 +512,20 @@ class Admin extends CI_Controller
             redirect(base_url(), 'refresh');
         
         if ($param1 == 'create') {
-           $data['student_id']         = $this->input->post('student_id');
+           $data['student_id']          = $this->input->post('student_id');
             $data['title']              = $this->input->post('title');
             $data['description']        = $this->input->post('description');
-            $data['add_fee']        = $this->input->post('add_fee');
-            $data['security_fee']        = $this->input->post('security_fee');
+            $data['add_fee']            = $this->input->post('add_fee');
+            $data['security_fee']       = $this->input->post('security_fee');
             $data['tuition_fee']        = $this->input->post('tuition_fee');
-            $data['annual_fee']        = $this->input->post('annual_fee');
-            $data['stationary_fee']        = $this->input->post('stationary_fee');
-            $data['multimedia_fee']        = $this->input->post('multimedia_fee');
-            $data['others']        = $this->input->post('others');
+            $data['annual_fee']         = $this->input->post('annual_fee');
+            $data['stationary_fee']     = $this->input->post('stationary_fee');
+            $data['multimedia_fee']     = $this->input->post('multimedia_fee');
+            $data['others']             = $this->input->post('others');
             $data['amount']             = $this->input->post('amount');
             $data['status']             = $this->input->post('status');
             $data['creation_timestamp'] = strtotime($this->input->post('date'));
-            $data['due_date'] = strtotime($this->input->post('due_date'));
+            $data['due_date'] = date('Y-m-d',strtotime($this->input->post('due_date')));
             
             
             $this->db->insert('invoice', $data);
@@ -535,19 +535,23 @@ class Admin extends CI_Controller
             $data['student_id']         = $this->input->post('student_id');
             $data['title']              = $this->input->post('title');
             $data['description']        = $this->input->post('description');
-            $data['add_fee']        = $this->input->post('add_fee');
-            $data['security_fee']        = $this->input->post('security_fee');
+            $data['add_fee']            = $this->input->post('add_fee');
+            $data['security_fee']       = $this->input->post('security_fee');
             $data['tuition_fee']        = $this->input->post('tuition_fee');
-            $data['annual_fee']        = $this->input->post('annual_fee');
-            $data['stationary_fee']        = $this->input->post('stationary_fee');
-            $data['multimedia_fee']        = $this->input->post('multimedia_fee');
-            $data['others']        = $this->input->post('others');
-            $data['amount']             = $this->input->post('amount');
+            $data['annual_fee']         = $this->input->post('annual_fee');
+            $data['stationary_fee']     = $this->input->post('stationary_fee');
+            $data['multimedia_fee']     = $this->input->post('multimedia_fee');
+            $data['others']             = $this->input->post('others');
+            $data['amount']             = $this->input->post('add_fee');
             $data['status']             = $this->input->post('status');
             $data['creation_timestamp'] = strtotime($this->input->post('date'));
-            $data['due_date'] = strtotime($this->input->post('due_date'));
+            $data['due_date'] = date('Y-m-d',strtotime($this->input->post('due_date')));
+            
+            
+            //$data2=$data['add_fee']+$data['security_fee']+$data['tuition_fee']+$data['annual_fee']+$data['stationary_fee']+$data['multimedia_fee']+$data['others'];
             
             $this->db->insert('invoice', $data);
+             //$this->db->insert('invoice', $data2);
             redirect(base_url() . 'index.php?admin/invoice', 'refresh');
         }
         if ($param1 == 'do_update') {
@@ -564,7 +568,7 @@ class Admin extends CI_Controller
             $data['amount']             = $this->input->post('amount');
             $data['status']             = $this->input->post('status');
             $data['creation_timestamp'] = strtotime($this->input->post('date'));
-            $data['due_date'] = strtotime($this->input->post('due_date'));
+            $data['due_date'] = date('Y-m-d',strtotime($this->input->post('due_date')));
             
             
             $this->db->where('invoice_id', $param2);
