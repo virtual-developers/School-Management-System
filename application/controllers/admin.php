@@ -70,10 +70,10 @@ class Admin extends CI_Controller
         function student_invoice($class_id = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
-            redirect('login', 'refresh');
+                                redirect('login', 'refresh');
 			
-		$page_data['page_name']  	= 'student_invoice';
-		$page_data['page_title'] 	= get_phrase('student_invoice'). " - ".get_phrase('class')." : ".
+		$page_data['page_name']  = 'student_invoice';
+		$page_data['page_title'] = get_phrase('student_invoice'). " - ".get_phrase('class')." : ".
 											$this->crud_model->get_class_name($class_id);
 		$page_data['class_id'] 	= $class_id;
 		$this->load->view('backend/index', $page_data);
@@ -238,6 +238,52 @@ class Admin extends CI_Controller
         $page_data['teachers']   = $this->db->get('teacher')->result_array();
         $page_data['page_name']  = 'teacher';
         $page_data['page_title'] = get_phrase('manage_teacher');
+        $this->load->view('backend/index', $page_data);
+    }
+    
+    
+    function holiday($param1 = '', $param2 = '', $param3 = '')
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+        if ($param1 == 'create') {
+            $data['title']        = $this->input->post('title');
+            $data['description']    = $this->input->post('description');
+            //echo $this->input->post('date'); 
+            //exit;
+            $data['date']         =  date( 'Y-m-d',  strtotime($this->input->post('date')) );
+            $data['status']     = $this->input->post('status');
+ 
+            $this->db->insert('holidays', $data);
+            $teacher_id = mysql_insert_id();
+ 
+            redirect(base_url() . 'index.php?admin/holiday/', 'refresh');
+        }
+        if ($param1 == 'do_update') {
+            $data['title']        = $this->input->post('title');
+            $data['description']    = $this->input->post('description');
+            $data['date']         = $this->input->post('date');
+            $data['status']     = $this->input->post('status');
+ 
+            
+            $this->db->where('id', $param2);
+            $this->db->update('holidays', $data);
+          
+            redirect(base_url() . 'index.php?admin/holiday/', 'refresh');
+        
+        } else if ($param1 == 'edit') {
+            $page_data['edit_data'] = $this->db->get_where('holidays', array(
+                'id' => $param2
+            ))->result_array();
+        }
+        if ($param1 == 'delete') {
+            $this->db->where('id', $param2);
+            $this->db->delete('holidays');
+            redirect(base_url() . 'index.php?admin/holiday/', 'refresh');
+        }
+        $page_data['teachers']   = $this->db->get('holidays')->result_array();
+        $page_data['page_name']  = 'holiday';
+        $page_data['page_title'] = get_phrase('Manage Holidays');
         $this->load->view('backend/index', $page_data);
     }
     
