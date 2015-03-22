@@ -179,13 +179,142 @@
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
                     <thead>
                             <tr>
-                            <th><?php echo get_phrase('select_from_date');?></th>
-                            <th><?php echo get_phrase('select_to_date');?></th>
+                            <th><?php echo get_phrase('select_month');?></th>
+                            <th><?php echo get_phrase('select_year');?></th>
                             <th><?php echo get_phrase('select Class');?></th>
                             <th><?php echo get_phrase('select_student');?></th>                            
                             <th><?php echo get_phrase('action');?></th>                            
+                            
                             </tr>
                    </thead>
+                           <tbody>
+                                    <form method="post" action="<?php echo base_url();?>index.php?reports/student_attendance" class="form">
+                                       <tr class="gradeA">                        
+                                           <td>
+                                               <select name="month" class="form-control">
+                                                       <?php 
+                                                                               for($i=1;$i<=12;$i++):
+                                                                                       if($i==1)$m='january';
+                                                                                       else if($i==2)$m='february';
+                                                                                       else if($i==3)$m='march';
+                                                                                       else if($i==4)$m='april';
+                                                                                       else if($i==5)$m='may';
+                                                                                       else if($i==6)$m='june';
+                                                                                       else if($i==7)$m='july';
+                                                                                       else if($i==8)$m='august';
+                                                                                       else if($i==9)$m='september';
+                                                                                       else if($i==10)$m='october';
+                                                                                       else if($i==11)$m='november';
+                                                                                       else if($i==12)$m='december';
+                                                                               ?>
+                                                       <option value="<?php echo $i;?>"
+                                                               <?php if($month==$i)echo 'selected="selected"';?>>
+                                                                                                       <?php echo $m;?>
+                                                                       </option>
+                                                   <?php 
+                                                                               endfor;
+                                                                               ?>
+                                               </select>
+                                           </td>
+                                           <td>
+                                               <select name="year" class="form-control">
+                                                       <?php for($i=2020;$i>=2010;$i--):?>
+                                                       <option value="<?php echo $i;?>"
+                                                               <?php if(isset($year) && $year==$i)echo 'selected="selected"';?>>
+                                                                                                       <?php echo $i;?>
+                                                                       </option>
+                                                   <?php endfor;?>
+                                               </select>
+                                           </td>
+                                           <td>
+                                               <select name="class_id" class="form-control">
+                                                       <?php 
+                                                                               $classes	=	$this->db->get('class')->result_array();
+                                                                               foreach($classes as $row):?>
+                                                       <option value="<?php echo $row['class_id'];?>"
+                                                       <?php if(isset($class_id) && $class_id==$row['class_id'])echo 'selected="selected"';?>>
+                                                                                               <?php echo $row['name'];?>
+                                                                       </option>
+                                                   <?php endforeach;?>
+                                               </select>
+
+                                           </td>
+                                           <td>
+                                               <select name="student_id" class="form-control">
+                                                   <?php 
+                                     $all_students	=	$this->db->get('student')->result_array();
+                                                                               foreach($all_students as $row):?>
+                                                       <option value="<?php echo $row['student_id'];?>"
+                                                       <?php if(isset($student_id) && $student_id==$row['student_id'])echo 'selected="selected"';?>>
+                                                                                               <?php echo $row['name'];?>
+                                                                       </option>
+                                                   <?php endforeach;?>
+                                               </select>
+
+                                           </td>
+                                           <td align="center"><input type="submit" value="<?php echo get_phrase('RESULT');?>" class="btn btn-info"/></td>
+                                       </tr>
+                                       </form>
+                            </tbody>
+                            
+                            <div class="row">
+            <div class="col-sm-offset-3 col-md-6">
+                <table  class="table table-bordered">
+                        <thead>
+                                    <tr class="gradeA">
+                            <th><?php echo get_phrase('date');?></th>
+                            <th><?php echo get_phrase('name');?></th>
+                            <th><?php echo get_phrase('status');?></th>
+                                    </tr>
+                        </thead>
+
+                            <?php 
+                                    //STUDENTS ATTENDANCE
+                            
+                                    
+                                    $students	=	$this->db->get_where('student' , array('class_id'=>$class_id))->result_array();
+
+                                    foreach($students as $row)
+                                    {
+                                            ?>
+                                            <tr class="gradeA">
+                                                    <td><?php echo $row['roll'];?></td>
+                                                    <td><?php echo $row['name'];?></td>
+                                                    <td align="center">
+                                                        <?php 
+                                                        //inserting blank data for students attendance if unavailable
+                                                        $verify_data	=	array(	'student_id' => $row['student_id'],
+                                                                                                                'date' => $full_date);
+                                                        $query = $this->db->get_where('attendance' , $verify_data);
+                                                        if($query->num_rows() < 1)
+                                                        $this->db->insert('attendance' , $verify_data);
+
+                                                        //showing the attendance status editing option
+                                                        $attendance = $this->db->get_where('attendance' , $verify_data)->row();
+                                                        $status		= $attendance->status;
+                                ?>
+
+                                                        <form method="post" action="<?php echo base_url();?>index.php?report/manage_attendance/<?php echo $date.'/'.$month.'/'.$year.'/'.$class_id;?>">
+                                                         
+                                                            <select name="status" class="form-control" style="width:100px; float:left;">
+                                                                <option value="0" <?php if($status == 0)echo 'selected="selected"';?>></option>
+                                                                <option value="1" <?php if($status == 1)echo 'selected="selected"';?>>Present</option>
+                                                                <option value="2" <?php if($status == 2)echo 'selected="selected"';?>>Absent</option>
+                                                            </select>
+                                                            
+                                                            
+                                                            <input type="hidden" name="student_id" 			value="<?php echo $row['student_id'];?>" />
+                                                            <input type="hidden" name="date" 					value="<?php echo $full_date;?>" />
+                                                            <input type="submit" class="btn btn-default" 	value="save" style="float:left; margin:0px 10px;">
+                                                        </form>
+                                                    </td>
+                                            </tr>
+                                            <?php 
+                                    }
+                                    ?>
+                </table>
+            </div>
+        </div>
                    
                    
                 </table>

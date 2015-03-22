@@ -45,6 +45,26 @@ class Teacher extends CI_Controller
     }
     
     
+    
+    
+    public function markabset(){
+        
+        $students = $this->db->get('student');
+    
+        foreach ($students->result() as $value) {
+            print_r($value->student_id);
+            
+                $this->db->set('status', 2);
+            
+            $data['status']        = 2;
+            $data['student_id']    = $value->student_id;
+            $data['date']         = date('Y-m-d');
+            
+            $this->db->insert('attendance', $data);             
+        }exit;
+    }
+    
+    
     /*ENTRY OF A NEW STUDENT*/
     
     
