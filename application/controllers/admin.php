@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
 
 /*	
  *	@author : Team Virtual-Developers
- *	date	: 1 August, 2014
+ *	date	: 1 January, 2015
  *	Virtual-developers School & College Management System
  *	http://Virtual-developers.com
  */
