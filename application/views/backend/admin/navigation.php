@@ -152,6 +152,16 @@
 				</a>
            </li>
             
+           
+                      <!-- CLASS ROUTINE -->
+           <li class="<?php if($page_name == 'holiday')echo 'active';?> ">
+				<a href="<?php echo base_url();?>index.php?admin/holiday">
+					<i class="entypo-target"></i>
+					<span>Holidays </span>
+				</a>
+           </li>
+            
+           
            <!-- DAILY ATTENDANCE -->
            <li class="<?php if($page_name == 'manage_attendance')echo 'active';?> ">
 				<a href="<?php echo base_url();?>index.php?admin/manage_attendance/<?php echo date("d/m/Y");?>">
