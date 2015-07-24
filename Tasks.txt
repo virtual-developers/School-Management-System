@@ -8,8 +8,8 @@ For Student report: (Jawad)
 4. Create sumarry for studnets total attendence at top page. (for example no. student).
 
 
-To holiday management (Br. Sibghut)
+To holiday management (Br. Sibghatullah)
 Create table for holiday record.
-1. ID, Date, And description fild in DB table.
-2. Make view, so Admin will enter all holidays in system, enter date, description.
+1. ID, Date, And description fild in DB table.(done)
+2. Make view, so Admin will enter all holidays in system, enter date, description.(done)
 3. Bydefault all working days will Active except saturday & sunday.

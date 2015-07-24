@@ -105,6 +105,7 @@ class Admin extends CI_Controller
             $data['password']    = $this->input->post('password');
             $data['class_id']    = $this->input->post('class_id');
             $data['roll']        = $this->input->post('roll');
+            $data['fee']        = $this->input->post('fee');
             $this->db->insert('student', $data);
             $student_id = mysql_insert_id();
             move_uploaded_file($_FILES['userfile']['tmp_name'], 'uploads/student_image/' . $student_id . '.jpg');
@@ -286,6 +287,68 @@ class Admin extends CI_Controller
         $page_data['page_title'] = get_phrase('Manage Holidays');
         $this->load->view('backend/index', $page_data);
     }
+    
+    
+    
+    function payment($param1 = '', $param2 = '', $param3 = '')
+    {
+        if ($this->session->userdata('admin_login') != 1)
+            redirect(base_url(), 'refresh');
+        if ($param1 == 'create') {
+            $data['s_id']        = $this->input->post('student_id');
+            $data['payment_type_id']    = $this->input->post('payment_type_id');
+            $data['amount']    = $this->input->post('amount');
+            $data['created']         =  date( 'Y-m-d');
+            
+            $this->db->insert('student_payments', $data);
+            $teacher_id = mysql_insert_id();
+ 
+            redirect(base_url() . 'index.php?admin/payment/', 'refresh');
+        }
+        if ($param1 == 'do_update') {
+            $data['s_id']        = $this->input->post('student_id');
+            $data['payment_type_id']    = $this->input->post('payment_type_id');
+            $data['created']         =  date( 'Y-m-d');
+            $this->db->where('id', $param2);
+            $this->db->update('student_payments', $data);
+          
+            redirect(base_url() . 'index.php?admin/payment/', 'refresh');
+        
+        } else if ($param1 == 'edit') {
+            $page_data['edit_data'] = $this->db->get_where('student_payments', array(
+                'id' => $param2
+            ))->result_array();
+        }
+        if ($param1 == 'delete') {
+            $this->db->where('id', $param2);
+            $this->db->delete('student_payments');
+            redirect(base_url() . 'index.php?admin/payment/', 'refresh');
+        }
+        
+        
+        $stuent_list = $this->db->get('student')->result_array();
+        $student = Array() ; 
+        foreach ($stuent_list as $value) {
+        $student[$value['student_id']] = $value['name']    ;
+        }
+        
+        $payment_types_list = $this->db->get('payment_types')->result_array();
+            
+        $payment_types  = array();
+        
+        foreach ($payment_types_list as $value) {
+            $payment_types[$value['id']]  = $value['title'];
+            }
+            
+        $page_data['student']   = $student ; 
+        $page_data['student_payments']   = $this->db->get('student_payments')->result_array();
+        $page_data['payment_types']  =  $payment_types ; //
+        
+        $page_data['page_name']  = 'payment'; #view file name 
+        $page_data['page_title'] = get_phrase('Manage Fees');
+        $this->load->view('backend/index', $page_data);
+    }
+    
     
     /****MANAGE SUBJECTS*****/
     function subject($param1 = '', $param2 = '' , $param3 = '')

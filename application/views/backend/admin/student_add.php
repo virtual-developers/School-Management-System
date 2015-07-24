@@ -90,7 +90,16 @@
 						</div>
 					</div>
 					
+					
 					<div class="form-group">
+						<label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('Monthly Fee');?></label>
+                        
+						<div class="col-sm-5">
+							<input type="text" data-validate="required" class="form-control" name="fee" value="" >
+						</div> 
+					</div>
+	
+                            <div class="form-group">
 						<label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('password');?></label>
                         
 						<div class="col-sm-5">
