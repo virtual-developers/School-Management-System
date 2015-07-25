@@ -160,15 +160,17 @@
                     	?>
                         
 
-                            <select name="status[]" class="form-control att_status" style="width:100px; float:left;">
+                                            <select name="status[]" onchange="show_leave(this.value,'<?php echo $row['student_id'];?>')" class="form-control att_status" style="width:100px; float:left;">
                                 <option value="0" <?php if($status == 0)echo 'selected="selected"';?>></option>
-                                <option value="1" <?php if($status == 1)echo 'selected="selected"';?>>Present</option>
+                                <option value="1"  <?php if($status == 1)echo 'selected="selected"';?>>Present</option>
                                 <option value="2" <?php if($status == 2)echo 'selected="selected"';?>>Absent</option>
+                                <option value="3" <?php if($status == 3)echo 'selected="selected"';?>>Leave</option>
                             </select>
                             <input type="hidden" name="student_id[]" value="<?php echo $row['student_id'];?>" />
                             <input type="hidden" name="date" value="<?php echo $full_date;?>" />
-                            
-                        
+                            <p class="hide" id="commit_<?php echo $row['student_id'];?>">
+                                <input type="text" placeholder="Leave remarks" name="commet_<?php echo $row['student_id'];?>" value="" />
+                        </p>
                     </td>
 				</tr>
 				<?php 
@@ -191,6 +193,19 @@ $( ".att_status" ).each(function() {
 });
         //alert(status)
         //$('.att_status >option:eq('+status+' )').attr('selected', true);
+    }
+    
+    function show_leave(val,id)
+    {
+        if(val==3)
+        {
+            $('#commit_'+id).removeClass('hide');
+        }
+        else{
+            
+            $('#commit_'+id).addClass('hide');
+        }
+        //alert(val)
     }
     </script>
 <?php endif;?>

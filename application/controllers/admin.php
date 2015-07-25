@@ -598,6 +598,13 @@ class Admin extends CI_Controller
 			
 			$this->db->where('attendance_id' , $attendance_id);
 			$this->db->update('attendance' , array('status' => $att_status[$key] ));
+                        if($att_status[$key]==3 )
+                        {
+                            $leave_commit = $_POST['commet_'.$student_id];
+                        $this->db->where('attendance_id' , $attendance_id);
+                            $this->db->update('attendance' , array('comments' => $leave_commit ));
+                        }
+                        
                     }
 			
 			redirect(base_url() . 'index.php?admin/manage_attendance/'.$date.'/'.$month.'/'.$year.'/'.$class_id , 'refresh');
