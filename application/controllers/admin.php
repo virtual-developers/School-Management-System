@@ -588,13 +588,17 @@ class Admin extends CI_Controller
 		
 		if($_POST)
 		{
-			$verify_data	=	array(	'student_id' 		=> $this->input->post('student_id'),
-										'date' 				=> $this->input->post('date'));
+                    //print_r($this->input->post('student_id'));
+                    $att_status = $this->input->post('status');
+                    foreach ($this->input->post('student_id') as $key => $student_id) {
+                        
+			$verify_data = array('student_id' =>$student_id, 'date'=> $this->input->post('date'));
 			$attendance = $this->db->get_where('attendance' , $verify_data)->row();
 			$attendance_id		= $attendance->attendance_id;
 			
 			$this->db->where('attendance_id' , $attendance_id);
-			$this->db->update('attendance' , array('status' => $this->input->post('status')));
+			$this->db->update('attendance' , array('status' => $att_status[$key] ));
+                    }
 			
 			redirect(base_url() . 'index.php?admin/manage_attendance/'.$date.'/'.$month.'/'.$year.'/'.$class_id , 'refresh');
 		}
