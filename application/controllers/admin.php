@@ -97,6 +97,7 @@ class Admin extends CI_Controller
             redirect('login', 'refresh');
         if ($param1 == 'create') {
             $data['name']        = $this->input->post('name');
+            $data['last_name']        = $this->input->post('last_name');
             $data['birthday']    = $this->input->post('birthday');
             $data['sex']         = $this->input->post('sex');
             $data['address']     = $this->input->post('address');
@@ -114,6 +115,7 @@ class Admin extends CI_Controller
         }
         if ($param2 == 'do_update') {
             $data['name']        = $this->input->post('name');
+            $data['last_name']   = $this->input->post('last_name');
             $data['birthday']    = $this->input->post('birthday');
             $data['sex']         = $this->input->post('sex');
             $data['address']     = $this->input->post('address');
@@ -121,6 +123,7 @@ class Admin extends CI_Controller
             $data['email']       = $this->input->post('email');
             $data['class_id']    = $this->input->post('class_id');
             $data['roll']        = $this->input->post('roll');
+            $data['password']    = $this->input->post('password');
             
             $this->db->where('student_id', $param3);
             $this->db->update('student', $data);
