@@ -10,7 +10,7 @@
         <tr>
             <th width="80"><div><?php echo get_phrase('roll');?></div></th>
             <th width="80"><div><?php echo get_phrase('photo');?></div></th>
-            <th><div><?php echo get_phrase('name');?></div></th>
+            <th><div><?php echo get_phrase('Student Name');?></div></th>
             <th class="span3"><div><?php echo get_phrase('address');?></div></th>
             <th><div><?php echo get_phrase('email');?></div></th>
             <th><div><?php echo get_phrase('options');?></div></th>
@@ -23,7 +23,7 @@
         <tr>
             <td><?php echo $row['roll'];?></td>
             <td><img src="<?php echo $this->crud_model->get_image_url('student',$row['student_id']);?>" class="img-circle" width="30" /></td>
-            <td><?php echo $row['name'];?></td>
+            <td><?php echo $row['name'] ." " . $row['last_name'];?></td>
             <td><?php echo $row['address'];?></td>
             <td><?php echo $row['email'];?></td>
             <td>

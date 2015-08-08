@@ -20,7 +20,7 @@ foreach($student_info as $row):?>
 			<ul class="profile-info-sections">
 				<li style="padding:0px; margin:0px;">
 					<div class="profile-name">
-							<h3><?php echo $row['name'];?></h3>
+							<h3><?php echo $row['name'] . " ". $row['last_name'];?></h3>
 					</div>
 				</li>
 			</ul>
