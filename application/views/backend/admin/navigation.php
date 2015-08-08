@@ -218,7 +218,7 @@
                   <!-- STUDENT INFORMATION -->
 					<li class="<?php if($page_name == 'student_invoice')echo 'opened active';?> ">
 						<a href="#">
-							<span><i class="entypo-dot"></i> <?php echo get_phrase('student_invoice');?></span>
+							<span><i class="entypo-dot"></i> <?php echo get_phrase('student_payments');?></span>
 						</a>
                         <ul>
                         	<?php $classes	=	$this->db->get('class')->result_array();

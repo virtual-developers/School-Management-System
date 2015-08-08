@@ -12,23 +12,12 @@
                 <?php echo form_open('admin/student/create/' , array('class' => 'form-horizontal form-groups-bordered validate', 'enctype' => 'multipart/form-data'));?>
 	
 					<div class="form-group">
-						<label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('First Name');?></label>
+						<label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('name');?></label>
                         
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="name" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" value="" autofocus>
 						</div>
 					</div>
-
-					<div class="form-group">
-						<label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('Last name');?></label>
-                        
-						<div class="col-sm-5">
-							<input type="text" class="form-control" name="last_name" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" value="" autofocus>
-						</div>
-					</div>
-
-
-
 					
 					<div class="form-group">
 						<label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('class');?></label>
@@ -54,7 +43,7 @@
 						<label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('roll');?></label>
                         
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="roll" value="" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" value="" autofocus>
+							<input type="text" class="form-control" name="roll" value="" >
 						</div> 
 					</div>
 					
@@ -97,7 +86,7 @@
 					<div class="form-group">
 						<label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('email');?></label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="email" value="" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" value="" autofocus>
+							<input type="text" class="form-control" name="email" value="">
 						</div>
 					</div>
 					
@@ -114,7 +103,7 @@
 						<label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('password');?></label>
                         
 						<div class="col-sm-5">
-							<input type="password" class="form-control" name="password" value="" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" value="" autofocus>
+							<input type="text" class="form-control" name="password" value="" >
 						</div> 
 					</div>
 	

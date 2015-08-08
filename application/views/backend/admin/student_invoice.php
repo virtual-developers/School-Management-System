@@ -8,6 +8,7 @@
             <th class="span3"><div><?php echo get_phrase('address');?></div></th>
             <th><div><?php echo get_phrase('email');?></div></th>
             <th><div><?php echo get_phrase('options');?></div></th>
+           <th><div><?php echo get_phrase('fees');?></div></th>
         </tr>
     </thead>
     <tbody>
@@ -62,6 +63,10 @@
                 </div>
                 
             </td>
+            <td> <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php?modal/popup/modal_get_fee/<?php echo $row['student_id'];?>');">
+                                <i class="entypo-inbox"></i>
+                                    <?php echo get_phrase('Get Fee');?>
+                                </a></td>
         </tr>
         <?php endforeach;?>
     </tbody>

@@ -39,19 +39,10 @@ foreach ( $edit_data as $row):
 					</div>
 	
 					<div class="form-group">
-						<label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('First_name');?></label>
+						<label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('name');?></label>
                         
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="name" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" value="<?php echo $row['name'];?>">
-						</div>
-					</div>
-
-
-					<div class="form-group">
-						<label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('Last Name');?></label>
-                        
-						<div class="col-sm-5">
-							<input type="text" class="form-control" name="last_name" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" value="<?php echo $row['last_name'];?>">
 						</div>
 					</div>
 					
@@ -124,13 +115,6 @@ foreach ( $edit_data as $row):
 						<label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('email');?></label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="email" value="<?php echo $row['email'];?>">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('password');?></label>
-						<div class="col-sm-5">
-							<input type="password" class="form-control" name="password" value="<?php echo $row['password'];?>">
 						</div>
 					</div>
                     

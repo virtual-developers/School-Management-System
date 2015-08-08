@@ -42,7 +42,7 @@ $edit_data		=	$this->db->get_where('student' , array('student_id' => $param2) )-
         <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo get_phrase('add_fee');?></label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="add_fee" value="<?php echo $row['add_fee'];?>"/>
+                        <input type="text" class="form-control" name="add_feee" value="<?php echo $row['add_fee'];?>"/>
                     </div>
                 </div>
         <div class="form-group">
