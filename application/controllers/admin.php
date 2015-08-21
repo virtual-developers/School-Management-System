@@ -97,7 +97,6 @@ class Admin extends CI_Controller
             redirect('login', 'refresh');
         if ($param1 == 'create') {
             $data['name']        = $this->input->post('name');
-            $data['last_name']        = $this->input->post('last_name');
             $data['birthday']    = $this->input->post('birthday');
             $data['sex']         = $this->input->post('sex');
             $data['address']     = $this->input->post('address');
@@ -115,7 +114,6 @@ class Admin extends CI_Controller
         }
         if ($param2 == 'do_update') {
             $data['name']        = $this->input->post('name');
-            $data['last_name']        = $this->input->post('last_name');
             $data['birthday']    = $this->input->post('birthday');
             $data['sex']         = $this->input->post('sex');
             $data['address']     = $this->input->post('address');
@@ -123,7 +121,6 @@ class Admin extends CI_Controller
             $data['email']       = $this->input->post('email');
             $data['class_id']    = $this->input->post('class_id');
             $data['roll']        = $this->input->post('roll');
-            $data['password']    = $this->input->post('password');
             
             $this->db->where('student_id', $param3);
             $this->db->update('student', $data);
@@ -647,17 +644,17 @@ class Admin extends CI_Controller
            $data['student_id']          = $this->input->post('student_id');
             $data['title']              = $this->input->post('title');
             $data['description']        = $this->input->post('description');
-            $data['add_fee']            = $this->input->post('add_fee');
-            $data['security_fee']       = $this->input->post('security_fee');
-            $data['tuition_fee']        = $this->input->post('tuition_fee');
-            $data['annual_fee']         = $this->input->post('annual_fee');
-            $data['stationary_fee']     = $this->input->post('stationary_fee');
-            $data['multimedia_fee']     = $this->input->post('multimedia_fee');
-            $data['others']             = $this->input->post('others');
+           // $data['add_fee']            = $this->input->post('add_fee');
+          //  $data['security_fee']       = $this->input->post('security_fee');
+         //   $data['tuition_fee']        = $this->input->post('tuition_fee');
+          //  $data['annual_fee']         = $this->input->post('annual_fee');
+           // $data['stationary_fee']     = $this->input->post('stationary_fee');
+          //  $data['multimedia_fee']     = $this->input->post('multimedia_fee');
+          //  $data['others']             = $this->input->post('others');
             $data['amount']             = $this->input->post('amount');
             $data['status']             = $this->input->post('status');
             $data['creation_timestamp'] = strtotime($this->input->post('date'));
-            $data['due_date'] = date('Y-m-d',strtotime($this->input->post('due_date')));
+        //    $data['due_date'] = date('Y-m-d',strtotime($this->input->post('due_date')));
             
             
             $this->db->insert('invoice', $data);
@@ -689,26 +686,28 @@ class Admin extends CI_Controller
         if ($param1 == 'get_fee') {
         
           $dataa         = $this->input->post('fee');
+          $value         = $this->input->post('value');
+         
           
           foreach($dataa as $data1):
               $data['status']=1;
               $this->db->where('id', $data1);
               $this->db->update('student_dues', $data); 
           endforeach;
-               
+           $i=0;             
           foreach($dataa as $data2):
              
             $s_dues = $this->db->get_where('student_dues', array('id'=>$data2))->row_array();
-            $dues = $this->db->get_where('sys_dues', array('id'=>$s_dues['sys_dues_id']))->result_array();
+            $dues = $this->db->get_where('sys_dues', array('sys_dues_id'=>$s_dues['sys_dues_id']))->result_array();
              foreach ($dues as $duess){
-             $dats['amount']= $duess['amount'];
-             $dats['s_id'] = $param3;
-             $dats['s_dues_id'] = $data2;
+             $dats['amount']= $value[$i];
+             $dats['student_id'] = $param2;
+             $dats['sys_dues_id'] = $s_dues['sys_dues_id'];
              $dats['created'] = date('Y-m-d');
              $this->db->insert('student_payments', $dats);
              }
-             
-            endforeach;
+             $i++;
+          endforeach;
             
                redirect(base_url() . 'index.php?admin/invoice', 'refresh');
            }

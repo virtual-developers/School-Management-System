@@ -100,7 +100,7 @@
            </li>
             
            <!-- PARENT -->
-           <li class="<?php if($page_name == 'parent')echo 'opened active';?> ">
+<!--           <li class="<?php if($page_name == 'parent')echo 'opened active';?> ">
 				<a href="<?php echo base_url();?>index.php?admin/parent">
 					<i class="entypo-user"></i>
 					<span><?php echo get_phrase('parent');?></span>
@@ -115,7 +115,7 @@
                     </li>
                     <?php endforeach;?>
                 </ul>
-           </li>
+           </li>-->
             
            <!-- CLASS -->
            <li class="<?php if($page_name == 'class')echo 'active';?> ">
@@ -269,7 +269,7 @@
            </li>
             
            <!-- SETTINGS -->
-           <li class="<?php if($page_name == 'system_settings' ||
+<!--           <li class="<?php if($page_name == 'system_settings' ||
 		   								$page_name == 'manage_language')echo 'opened active';?> ">
 				<a href="#">
 					<i class="entypo-lifebuoy"></i>
@@ -287,15 +287,15 @@
 						</a>
 					</li>
                 </ul>
-           </li>
+           </li>-->
             
-           <!-- ACCOUNT -->
+<!--            ACCOUNT 
            <li class="<?php if($page_name == 'manage_profile')echo 'active';?> ">
 				<a href="<?php echo base_url();?>index.php?admin/manage_profile">
 					<i class="entypo-lock"></i>
 					<span><?php echo get_phrase('account');?></span>
 				</a>
-           </li>
+           </li>-->
                 
            
            

@@ -14,7 +14,11 @@ class Crud_model extends CI_Model {
 	}
 	function get_type_name_by_id($type,$type_id='',$field='name')
 	{
-		return	$this->db->get_where($type,array($type.'_id'=>$type_id))->row()->$field;	
+	     $this->db->get_where($type,array($type.'_id'=>$type_id))->row()->$field;	
+	}
+        function get_title_by_id($type,$type_id='',$field='title')
+	{
+              return	$this->db->get_where($type,array($type.'_id'=>$type_id))->row()->$field;	
 	}
 	
 	////////STUDENT/////////////

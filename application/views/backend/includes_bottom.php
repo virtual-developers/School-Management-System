@@ -1,7 +1,3 @@
-	
-    
-    
-    
 
 	<link rel="stylesheet" href="assets/js/datatables/responsive/css/datatables.responsive.css">
 	<link rel="stylesheet" href="assets/js/select2/select2-bootstrap.css">
