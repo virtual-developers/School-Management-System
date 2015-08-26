@@ -63,9 +63,9 @@
                 </div>
                 
             </td>
-            <td> <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php?modal/popup/modal_get_fee/<?php echo $row['student_id'];?>');">
-                                <i class="entypo-inbox"></i>
-                                    <?php echo get_phrase('Get Fee');?>
+            <td align="center"> <a href="#" onclick="showAjaxModal('<?php echo base_url();?>index.php?modal/popup/modal_get_fee/<?php echo $row['student_id'];?>');">
+<!--                                <i class="entypo-inbox"></i>-->
+                                   <i class="fa fa-money fa-2x"></i>
                                 </a></td>
         </tr>
         <?php endforeach;?>

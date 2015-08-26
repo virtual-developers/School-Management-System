@@ -33,15 +33,5 @@ class Modal extends CI_Controller {
 		
 		echo '<script src="assets/js/neon-custom-ajax.js"></script>';
 	}
-
-	function popup_dues($page_name = '' , $param2 = '' , $param3 = '')
-	{
-		$account_type		=	$this->session->userdata('login_type');
-		$page_data['param2']		=	$param2;
-		$page_data['param3']		=	$param3;
-		$this->load->view( 'backend/'. 'system_dues' .'/'.$page_name.'.php' ,$page_data);
-		
-		echo '<script src="assets/js/neon-custom-ajax.js"></script>';
-	}
 }
 

@@ -708,8 +708,9 @@ class Admin extends CI_Controller
              }
              $i++;
           endforeach;
-            
-               redirect(base_url() . 'index.php?admin/invoice', 'refresh');
+          $class_id = $this->crud_model->get_class_by_id('student',$param2);
+            echo $param2;
+               redirect(base_url() . 'index.php?admin/student_invoice/'.$class_id, 'refresh');
            }
         if ($param1 == 'do_update') {
             $data['student_id']         = $this->input->post('student_id');

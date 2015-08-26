@@ -1,6 +1,9 @@
 
 <?php 
-$edit_data=$this->db->get_where('student_payments' , array('student_id' => $param2) )->result_array();
+
+//echo $query->num_rows();
+
+$edit_data=$this->db->order_by('id', 'DESC')->get_where('student_payments' , array('student_id' => $param2), 5)->result_array();
 $student_info=$this->crud_model->get_student_info($param2);
 ?>
 
@@ -34,16 +37,10 @@ $student_info=$this->crud_model->get_student_info($param2);
                 </table>
 			</div>
             <!----TABLE LISTING ENDS--->
-            
-            
-			
-            
+       
 		</div>
-	</div>
-    
+	</div>    
 </div>
-
-
 
 <?php
 $student_info=$this->crud_model->get_student_info($param2);
@@ -51,27 +48,7 @@ foreach($student_info as $row):?>
 
 <div class="profile-env">
 	
-<!--	<header class="row">
-		
-
-		<div class="col-sm-9">
-			
-			<ul class="profile-info-sections">
-				<li style="padding:0px; margin:0px;">
-				<div class="profile-name">
-				<h3><?php // echo $row['name'];?></h3>
-				</div>
-				</li>
-			</ul>
-			
-		</div>
-		
-		
-	</header>-->
-	
 	<section class="profile-info-tabs">
-            
-	
             
 		<div class="row">
                     <div class="col-sm-12 col-md-12">
@@ -82,7 +59,7 @@ foreach($student_info as $row):?>
 			<div class="col-sm-6">
                             
             		<br>
-                <table class="table table-bordered">
+                <table class="table table-bordered datatable" id="table_export">
                     <?php if($row['class_id'] != ''):?>
                     <tr>
                        <td>Class:- <b><?php echo $this->crud_model->get_class_name($row['class_id']);?></b></td>
@@ -97,13 +74,10 @@ foreach($student_info as $row):?>
 			<a href="#" class="profile-picture pull-right">
 				<img src="<?php echo $this->crud_model->get_image_url('student' , $row['student_id']);?>" 
                 	class="img-responsive img-circle" />
-			</a>
-			
+			</a>			
 		</div>
 		</div>		
 	</section>
-	
-	
 	
 </div>
 
@@ -116,6 +90,7 @@ $edit_data=$this->db->get_where('student_dues' , array('student_id' => $param2, 
 <header class="row">
 
     <div class="col-sm-9">
+      
  <?php
       
  echo form_open('admin/invoice/get_fee/'.$row['student_id'], array('class' => 'form-horizontal form-groups-bordered validate','target'=>'_top')); ?>
@@ -124,60 +99,82 @@ $edit_data=$this->db->get_where('student_dues' , array('student_id' => $param2, 
        $s_id = $row['sys_dues_id'];
        $dues = $this->db->get_where('sys_dues', array('sys_dues_id'=>$s_id))->result_array();
      
-            ?>
-              <div class="col-lg-6"> <label><?php  echo get_phrase( $this->crud_model->get_title_by_id('sys_dues',$row['sys_dues_id']));?></label>
-           </div>
-              <div class="col-lg-6">
+       ?>
+              <div class="col-lg-2"> <label><?php  echo get_phrase( $this->crud_model->get_title_by_id('sys_dues',$row['sys_dues_id']));?></label>
+              </div>
+              <div class="col-lg-10">
                  
                  <div class="input-group">
                <span class="input-group-addon">
                    <input type="checkbox" name="fee[]" value="<?= $row['id'] ?>" onclick="myFunction(<?= $row['id'] ?>)" >
                </span>
-                     <input  id="<?= $row['id'] ?>" value="<?php echo$row['fee']; ?>" onchange="mycheck(    )" type="number" name="value[]" class="form-control" disabled>
+                     <input disabled  onchange="value_amount()"  id="<?= $row['id'] ?>" value="<?php echo$row['fee']; ?>"  type="number" name="value[]" class="form-control amount_select" >
             </div><!-- /input-group -->
-         </div>
+              </div>
       
         <?php endforeach;
-        
-
+    
 $this->db->where(['student_id'=>$param2, 'status'=>0]);
 $this->db->from('student_dues');
 $test=$this->db->count_all_results();
 if($test >= 1){
 
         ?>
-                
-                
-              
-                <div class="col-lg-12">
-                    <input class="pull-right" type="submit" name="submit" Value="Submit"/>
+         <div>&nbsp;</div>      <div class="col-lg-12">
+                    <input class="pull-right btn btn-default" type="submit" name="submit" Value="Submit"/>
 </div>
     <?php } ?>
   </ul>
-    </form>
+    </form></table>
     </div>
 
-<p id="demo"></p>
+    <p id="demo">Total Amount : <span id="t_amount"></span></p>
 </div>
 </header>
 
 <script>
-    function mycheck() {
-        alert('hello');
-//    var inpObj = document.getElementById("id1");
-//    if (inpObj.checkValidity() == false) {
-//        document.getElementById("demo").innerHTML = inpObj.validationMessage;
-//    } else {
-//        document.getElementById("demo").innerHTML = "Input OK";
-    } 
+    function value_amount() {
+        
+ var a = 0;
+$('.amount_select').each(function( index,val ) {
+    if (! $(this).prop("disabled") )
+    {  
+       //alert(val.value);
+      if(val.value == null || val.value == ""){
+          val.value=0;
+      }
+       a = parseInt(a)+parseInt(val.value);
+                        
+    }
+    $('#t_amount').html(a);
+});    
 } 
 function myFunction(id) {
+    
     var x = document.getElementById(id);
+
 
     if (x.hasAttribute("disabled")) {
         x.removeAttribute("disabled"); 
-    }else{
+            var amount = x.value
+                        
+        }
+    else{
         x.setAttribute("disabled", "disabled");
     }
+    
+ var a = 0;
+$('.amount_select').each(function( index,val ) {
+    if (! $(this).prop("disabled") )
+    {  
+       //alert(val.value);
+     if(val.value == null || val.value == ""){
+          val.value=0;
+      }
+       a = parseInt(a)+parseInt(val.value);
+   
+    }
+    $('#t_amount').html(a);
+});
 }
 </script>
